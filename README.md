@@ -31,31 +31,6 @@ The system drives the navigation using standard differential-drive models.
 * A cosine penalty is applied to the local velocity based on angular error, forcing the robot to slow down and turn rather than taking wide sweeping arcs off the road.
 * The maximum forward velocity is strictly capped at $15.0$ pixels per second.
 
-**Inverse Kinematics**
-The inverse kinematics function calculates the required angular velocities for the two wheels, $\dot{\phi}_{1/2}$, to achieve a desired global velocity vector. 
-
-First, a coordinate transformation from the global to the local space is calculated using the robot's current orientation:
-$$R_{I\rightarrow0}=\begin{bmatrix}\cos(\theta)&\sin(\theta)&0\\ -\sin(\theta)&\cos(\theta)&0\\ 0&0&1\end{bmatrix}$$ 
-
-This is then multiplied by the inverse kinematics matrix $J_{inv}$ to account for the physical constraints of the drive system:
-$$J_{inv}=\begin{bmatrix}\frac{1}{r}&0&\frac{L}{r}\\ \frac{1}{r}&0&\frac{-L}{r}\end{bmatrix}$$
-
-The complete mathematical operation to find the required wheel speeds is:
-$$\begin{bmatrix}\dot{\phi}_{1}\\ \dot{\phi}_{2}\end{bmatrix}=J_{inv}R_{I\rightarrow0}\begin{bmatrix}v_{x}\\ v_{y}\\ \omega\end{bmatrix}$$ 
-
-**Forward Kinematics**
-The forward kinematics function performs the reverse mathematical operation, taking the applied wheel speeds to calculate the global velocities the robot achieved. 
-
-The forward kinematics matrix $J_{fwd}$ is defined as:
-$$J_{fwd}=\begin{bmatrix}\frac{r}{2}&\frac{r}{2}\\ 0&0\\ \frac{r}{2L}&\frac{-r}{2L}\end{bmatrix}$$ 
-
-The complete matrix equation for this transformation, where $R_{0\rightarrow I}$ is the inverse of $R_{I\rightarrow0}$, is:
-$$\begin{bmatrix}v_{x}\\ v_{y}\\ \omega\end{bmatrix}=R_{0\rightarrow1}J_{fwd}\begin{bmatrix}\phi_{1}\\ \phi_{2}\end{bmatrix}$$ 
-
-**Position Update**
-The robot's position is updated in discrete steps of $dt=0.1s$ using the standard formula:
-$$x_{new}=x+(v_{x}dt)$$ 
-
 ### 3\. Path Planning
 
 The planner operates directly in pixel-space to find a collision-free route.
