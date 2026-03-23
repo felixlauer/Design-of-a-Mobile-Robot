@@ -1,0 +1,10 @@
+__pycache__/
+venv/
+env/
+build/
+devel/
+install/
+*.bag  
+.env   
+report/
+data/CW2.Assignment.pdf
