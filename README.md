@@ -100,7 +100,3 @@ The project features three distinct simulation modes to test the planner and con
   * **OpenCV**: Executed all computer vision and mask extraction processes.
   * **NumPy & Matplotlib**: Handled mathematical operations and plotting.
   * **heapq**: Managed the priority queue for the Dijkstra search algorithm.
-
------
-
-Would you like me to draft an installation and setup section to accompany this README, or generate the code snippets for the matrix math to include in the kinematics section?
